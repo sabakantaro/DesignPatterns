@@ -153,3 +153,88 @@ const tvRemote = new AdvancedRemote(tv);
 
 radioRemote.power();
 radioRemote.volumeUp();
+
+
+
+// Without the Bridge pattern (two hierarchies)
+
+interface RadioRemote {
+  power(): void;
+  volumeDown(): void;
+  volumeUp(): void;
+  channelDown(): void;
+  channelUp(): void;
+}
+
+interface TvRemote {
+  power(): void;
+  volumeDown(): void;
+  volumeUp(): void;
+  channelDown(): void;
+  channelUp(): void;
+}
+
+class BasicRadioRemote implements RadioRemote {
+  protected device: Radio;
+
+  constructor(device: Radio) {
+    this.device = device;
+  }
+
+  power() {
+    if (this.device.isEnabled()) {
+      this.device.disable();
+    } else {
+      this.device.enable();
+    }
+  }
+
+  volumeDown() {
+    this.device.setVolume(this.device.getVolume() - 10);
+  }
+
+  volumeUp() {
+    this.device.setVolume(this.device.getVolume() + 10);
+  }
+
+  channelDown() {
+    this.device.setChannel(this.device.getChannel() - 1);
+  }
+
+  channelUp() {
+    this.device.setChannel(this.device.getChannel() + 1);
+  }
+}
+
+class BasicTvRemote implements TvRemote {
+  protected device: Tv;
+
+  constructor(device: Tv) {
+    this.device = device;
+  }
+
+  power() {
+    if (this.device.isEnabled()) {
+      this.device.disable();
+    } else {
+      this.device.enable();
+    }
+  }
+
+  volumeDown() {
+    this.device.setVolume(this.device.getVolume() - 10);
+  }
+
+  volumeUp() {
+    this.device.setVolume(this.device.getVolume() + 10);
+  }
+
+  channelDown() {
+    this.device.setChannel(this.device.getChannel() - 1);
+  }
+
+  channelUp() {
+    this.device.setChannel(this.device.getChannel() + 1);
+  }
+}
+
